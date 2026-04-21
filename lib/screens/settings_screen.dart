@@ -5,13 +5,13 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants.dart';
 import '../providers/game_provider.dart';
 
-/// Pantalla de configuracion con secciones organizadas.
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<GameProvider>();
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,39 +23,24 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
-          _buildSectionHeader('Apariencia'),
-          SwitchListTile(
-            title: Text(AppStrings.darkMode,
-              style: GoogleFonts.poppins()),
-            subtitle: Text('Tema de la aplicacion',
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                color: AppColors.greyMedium)),
-            secondary: Icon(
-              provider.isDarkMode
-                  ? Icons.dark_mode
-                  : Icons.light_mode,
-              color: AppColors.gold),
-            value: provider.isDarkMode,
-            activeTrackColor: AppColors.green,
-            onChanged: (_) => provider.toggleDarkMode(),
-          ).animate().fadeIn(duration: 300.ms),
-          _sectionDivider(),
-          _buildSectionHeader('Audio y Vibracion'),
+          _buildSectionHeader('Apariencia', theme),
+          _buildThemeSelector(context, provider, theme),
+          _sectionDivider(theme),
+          _buildSectionHeader('Audio y Vibracion', theme),
           SwitchListTile(
             title: Text(AppStrings.sound,
               style: GoogleFonts.poppins()),
             subtitle: Text('Efectos de sonido',
               style: GoogleFonts.poppins(
                 fontSize: 12,
-                color: AppColors.greyMedium)),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
             secondary: Icon(
               provider.isSoundEnabled
                   ? Icons.volume_up
                   : Icons.volume_off,
-              color: AppColors.green),
+              color: theme.colorScheme.primary),
             value: provider.isSoundEnabled,
-            activeTrackColor: AppColors.green,
+            activeTrackColor: theme.colorScheme.primary,
             onChanged: (_) => provider.toggleSound(),
           ),
           SwitchListTile(
@@ -64,51 +49,164 @@ class SettingsScreen extends StatelessWidget {
             subtitle: Text('Feedback haptico',
               style: GoogleFonts.poppins(
                 fontSize: 12,
-                color: AppColors.greyMedium)),
-            secondary: const Icon(Icons.vibration,
-              color: AppColors.green),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
+            secondary: Icon(Icons.vibration,
+              color: theme.colorScheme.primary),
             value: provider.isVibrationEnabled,
-            activeTrackColor: AppColors.green,
-            onChanged: (_) =>
-                provider.toggleVibration(),
+            activeTrackColor: theme.colorScheme.primary,
+            onChanged: (_) => provider.toggleVibration(),
           ),
-          _sectionDivider(),
-          _buildSectionHeader('Valores por defecto'),
-          _buildTimeSlider(provider),
+          _sectionDivider(theme),
+          _buildSectionHeader('Valores por defecto', theme),
+          _buildTimeSlider(provider, theme),
           _buildImpostorSelector(provider),
-          _sectionDivider(),
-          _buildSectionHeader('Peligroso'),
+          _sectionDivider(theme),
+          _buildSectionHeader('Peligroso', theme),
           _buildResetTile(context),
-          _sectionDivider(),
-          _buildSectionHeader('Acerca de'),
-          _buildAboutSection(),
+          _sectionDivider(theme),
+          _buildSectionHeader('Acerca de', theme),
+          _buildAboutSection(theme),
         ],
       ),
     );
   }
 
-  Widget _sectionDivider() {
-    return const Divider(
-      indent: 16, endIndent: 16,
-      color: AppColors.greyLight);
+  Widget _buildThemeSelector(
+      BuildContext context, GameProvider provider, ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Tema de color',
+            style: GoogleFonts.poppins(
+              fontSize: 15, fontWeight: FontWeight.w500)),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              _themeOption(
+                context: context,
+                provider: provider,
+                type: AppThemeType.cruceno,
+                label: 'Cruceño',
+                icon: Icons.flag_rounded,
+                colors: [AppColors.crucenoGreen, AppColors.white, AppColors.crucenoGreen],
+                isSelected: provider.themeType == AppThemeType.cruceno,
+              ),
+              const SizedBox(width: 10),
+              _themeOption(
+                context: context,
+                provider: provider,
+                type: AppThemeType.dark,
+                label: 'Oscuro',
+                icon: Icons.dark_mode,
+                colors: [AppColors.background, AppColors.grey, AppColors.surface],
+                isSelected: provider.themeType == AppThemeType.dark,
+              ),
+              const SizedBox(width: 10),
+              _themeOption(
+                context: context,
+                provider: provider,
+                type: AppThemeType.light,
+                label: 'Claro',
+                icon: Icons.light_mode,
+                colors: [AppColors.white, AppColors.surfaceLight, AppColors.white],
+                isSelected: provider.themeType == AppThemeType.light,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ).animate().fadeIn(duration: 300.ms);
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _themeOption({
+    required BuildContext context,
+    required GameProvider provider,
+    required AppThemeType type,
+    required String label,
+    required IconData icon,
+    required List<Color> colors,
+    required bool isSelected,
+  }) {
+    final theme = Theme.of(context);
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => provider.setThemeType(type),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                : theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isSelected
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.12),
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Column(
+            children: [
+              // Mini bandera de colores
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: colors.map((c) => Container(
+                  width: 14, height: 14,
+                  margin: const EdgeInsets.symmetric(horizontal: 1),
+                  decoration: BoxDecoration(
+                    color: c,
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(
+                      color: Colors.black.withValues(alpha: 0.1), width: 0.5),
+                  ),
+                )).toList(),
+              ),
+              const SizedBox(height: 8),
+              Icon(icon, size: 18,
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+              const SizedBox(height: 4),
+              Text(label,
+                style: GoogleFonts.poppins(
+                  fontSize: 11,
+                  fontWeight: isSelected
+                      ? FontWeight.w600 : FontWeight.w400,
+                  color: isSelected
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurface.withValues(alpha: 0.6))),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _sectionDivider(ThemeData theme) {
+    return Divider(
+      indent: 16, endIndent: 16,
+      color: theme.dividerColor);
+  }
+
+  Widget _buildSectionHeader(String title, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
       child: Text(title,
         style: GoogleFonts.poppins(
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          color: AppColors.gold,
+          color: theme.colorScheme.secondary,
           letterSpacing: 0.5)),
     );
   }
 
-  Widget _buildTimeSlider(GameProvider provider) {
+  Widget _buildTimeSlider(GameProvider provider, ThemeData theme) {
     return ListTile(
-      leading: const Icon(Icons.timer,
-        color: AppColors.green),
+      leading: Icon(Icons.timer,
+        color: theme.colorScheme.primary),
       title: Text('Tiempo de ronda',
         style: GoogleFonts.poppins()),
       subtitle: Slider(
@@ -116,8 +214,8 @@ class SettingsScreen extends StatelessWidget {
         min: AppDefaults.minRoundTime.toDouble(),
         max: AppDefaults.maxRoundTime.toDouble(),
         divisions: 10,
-        activeColor: AppColors.green,
-        inactiveColor: AppColors.greyLight,
+        activeColor: theme.colorScheme.primary,
+        inactiveColor: theme.colorScheme.onSurface.withValues(alpha: 0.12),
         label: '${provider.defaultRoundTime}s',
         onChanged: (v) =>
             provider.defaultRoundTime = v.round(),
@@ -157,12 +255,12 @@ class SettingsScreen extends StatelessWidget {
         'Volver a los valores originales',
         style: GoogleFonts.poppins(
           fontSize: 12,
-          color: AppColors.greyMedium)),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5))),
       onTap: () => _showResetDialog(context),
     );
   }
 
-  Widget _buildAboutSection() {
+  Widget _buildAboutSection(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(children: [
@@ -170,16 +268,16 @@ class SettingsScreen extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: AppColors.green)),
+            color: theme.colorScheme.primary)),
         const SizedBox(height: 4),
         Text('v1.0.0',
           style: GoogleFonts.poppins(
-            color: AppColors.greyMedium)),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
         const SizedBox(height: 8),
         Text('Proyecto universitario',
           style: GoogleFonts.poppins(
             fontSize: 13,
-            color: AppColors.greyMedium)),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
         const SizedBox(height: 4),
         const Text('Hecho en Santa Cruz 🇧🇴'),
       ]),
@@ -187,10 +285,11 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _showResetDialog(BuildContext context) {
+    final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: theme.colorScheme.surface,
         title: Text('Resetear configuracion',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600)),
@@ -202,7 +301,7 @@ class SettingsScreen extends StatelessWidget {
             onPressed: () => Navigator.pop(ctx),
             child: Text('Cancelar',
               style: GoogleFonts.poppins(
-                color: AppColors.greyMedium))),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5)))),
           TextButton(
             onPressed: () {
               context.read<GameProvider>()

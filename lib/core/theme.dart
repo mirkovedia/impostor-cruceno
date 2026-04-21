@@ -3,6 +3,80 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 
 abstract class AppTheme {
+  static ThemeData get crucenoTheme {
+    return ThemeData(
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.crucenoBg,
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.crucenoGreen,
+        secondary: AppColors.gold,
+        surface: AppColors.crucenoSurface,
+        error: AppColors.red,
+        onPrimary: AppColors.white,
+        onSecondary: AppColors.black,
+        onSurface: AppColors.crucenoText,
+      ),
+      textTheme: GoogleFonts.poppinsTextTheme(
+        ThemeData.light().textTheme,
+      ).apply(
+        bodyColor: AppColors.crucenoText,
+        displayColor: AppColors.crucenoText,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.crucenoGreen,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.poppins(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+        iconTheme: const IconThemeData(color: AppColors.white),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.crucenoGreen,
+          foregroundColor: AppColors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDefaults.cardRadius),
+          ),
+          textStyle: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: AppColors.crucenoSurface,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDefaults.cardRadius),
+          side: BorderSide(color: AppColors.crucenoBorder.withValues(alpha: 0.3)),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.crucenoSurfaceAlt,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.crucenoBorder),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.crucenoBorder),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+      dividerColor: AppColors.crucenoBorder,
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: AppColors.crucenoGreen,
+        contentTextStyle: TextStyle(color: AppColors.white),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   static ThemeData get darkTheme {
     return ThemeData(
       brightness: Brightness.dark,
@@ -126,5 +200,16 @@ abstract class AppTheme {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
     );
+  }
+
+  static ThemeData themeFor(AppThemeType type) {
+    switch (type) {
+      case AppThemeType.cruceno:
+        return crucenoTheme;
+      case AppThemeType.dark:
+        return darkTheme;
+      case AppThemeType.light:
+        return lightTheme;
+    }
   }
 }

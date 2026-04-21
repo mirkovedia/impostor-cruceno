@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' hide Category;
+import '../core/constants.dart';
 import '../models/category.dart';
 import '../models/game_config.dart';
 import '../models/game_state.dart';
@@ -19,7 +20,7 @@ class GameProvider extends ChangeNotifier {
   bool _hasLoadError = false;
   List<Category> _categories = [];
   GameState? _gameState;
-  bool _isDarkMode = true;
+  AppThemeType _themeType = AppThemeType.cruceno;
   bool _isSoundEnabled = true;
   bool _isVibrationEnabled = true;
 
@@ -27,7 +28,8 @@ class GameProvider extends ChangeNotifier {
   bool get hasLoadError => _hasLoadError;
   List<Category> get categories => _categories;
   GameState? get gameState => _gameState;
-  bool get isDarkMode => _isDarkMode;
+  AppThemeType get themeType => _themeType;
+  bool get isDarkMode => _themeType == AppThemeType.dark;
   bool get isSoundEnabled => _isSoundEnabled;
   bool get isVibrationEnabled => _isVibrationEnabled;
 
@@ -39,7 +41,7 @@ class GameProvider extends ChangeNotifier {
 
     try {
       await _storageService.init();
-      _isDarkMode = _storageService.isDarkMode;
+      _themeType = _storageService.themeType;
       _isSoundEnabled = _storageService.isSoundEnabled;
       _isVibrationEnabled = _storageService.isVibrationEnabled;
     } catch (e) {
@@ -81,9 +83,19 @@ class GameProvider extends ChangeNotifier {
     await _hapticService.trigger(type);
   }
 
+  void setThemeType(AppThemeType type) {
+    _themeType = type;
+    _storageService.themeType = type;
+    notifyListeners();
+  }
+
   void toggleDarkMode() {
-    _isDarkMode = !_isDarkMode;
-    _storageService.isDarkMode = _isDarkMode;
+    if (_themeType == AppThemeType.dark) {
+      _themeType = AppThemeType.cruceno;
+    } else {
+      _themeType = AppThemeType.dark;
+    }
+    _storageService.themeType = _themeType;
     notifyListeners();
   }
 
@@ -136,7 +148,6 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Retorna true si todas las rondas terminaron y se pasa a votación
   bool endCluesRound() {
     if (_gameState == null) return false;
     final wasLastRound = _gameState!.currentRound >= _gameState!.totalRounds;
@@ -158,7 +169,7 @@ class GameProvider extends ChangeNotifier {
 
   Future<void> resetSettings() async {
     await _storageService.resetAll();
-    _isDarkMode = true;
+    _themeType = AppThemeType.cruceno;
     _isSoundEnabled = true;
     _isVibrationEnabled = true;
     _audioService.enabled = true;

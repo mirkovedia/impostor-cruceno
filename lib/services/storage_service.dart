@@ -1,7 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import '../core/constants.dart';
 
 class StorageService {
   static const _keyDarkMode = 'dark_mode';
+  static const _keyThemeType = 'theme_type';
   static const _keySound = 'sound_enabled';
   static const _keyVibration = 'vibration_enabled';
   static const _keyDefaultRoundTime = 'default_round_time';
@@ -15,6 +17,17 @@ class StorageService {
 
   bool get isDarkMode => _prefs.getBool(_keyDarkMode) ?? true;
   set isDarkMode(bool value) => _prefs.setBool(_keyDarkMode, value);
+
+  AppThemeType get themeType {
+    final index = _prefs.getInt(_keyThemeType);
+    if (index == null || index >= AppThemeType.values.length) {
+      return AppThemeType.cruceno;
+    }
+    return AppThemeType.values[index];
+  }
+
+  set themeType(AppThemeType value) =>
+      _prefs.setInt(_keyThemeType, value.index);
 
   bool get isSoundEnabled => _prefs.getBool(_keySound) ?? true;
   set isSoundEnabled(bool value) => _prefs.setBool(_keySound, value);

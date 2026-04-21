@@ -4,29 +4,48 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../core/constants.dart';
 import '../core/app_routes.dart';
+import '../widgets/camba_character.dart';
 
-/// Pantalla principal del juego con diseño dramático y festivo.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final secondaryText = isDark ? AppColors.greyMedium : AppColors.crucenoTextSecondary;
+    final btnOutlineBorder = isDark
+        ? AppColors.white.withValues(alpha: 0.3)
+        : AppColors.crucenoGreen.withValues(alpha: 0.3);
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0A2E14),
-              Color(0xFF0D1F0D),
-              AppColors.background,
-              Color(0xFF1A0A0A),
-            ],
-            stops: [0.0, 0.3, 0.7, 1.0],
-          ),
+        decoration: BoxDecoration(
+          gradient: isDark
+              ? const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF0A2E14),
+                    Color(0xFF0D1F0D),
+                    AppColors.background,
+                    Color(0xFF1A0A0A),
+                  ],
+                  stops: [0.0, 0.3, 0.7, 1.0],
+                )
+              : const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.crucenoGreen,
+                    Color(0xFF00A83F),
+                    AppColors.crucenoBg,
+                    AppColors.crucenoBg,
+                  ],
+                  stops: [0.0, 0.12, 0.28, 1.0],
+                ),
         ),
         child: SafeArea(
           child: Padding(
@@ -34,35 +53,36 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 const Spacer(flex: 2),
-                // Emoji decorativo
-                const Text('🕵️', style: TextStyle(fontSize: 56))
-                    .animate()
-                    .fadeIn(duration: 500.ms)
+                // Personaje camba
+                const CambaCharacter(
+                  size: 130,
+                  animated: true,
+                  suspicious: true,
+                ).animate()
+                    .fadeIn(duration: 600.ms)
                     .scale(
                       begin: const Offset(0.5, 0.5),
                       end: const Offset(1.0, 1.0),
-                      duration: 600.ms,
+                      duration: 700.ms,
                       curve: Curves.elasticOut,
                     ),
-                const SizedBox(height: 16),
-                // Título principal con brillo dorado
+                const SizedBox(height: 12),
+                // Titulo principal
                 Text(
                   AppStrings.appName,
                   style: GoogleFonts.poppins(
-                    fontSize: 46,
+                    fontSize: 42,
                     fontWeight: FontWeight.w900,
-                    color: AppColors.green,
+                    color: isDark ? AppColors.green : AppColors.crucenoGreen,
                     letterSpacing: 2.0,
                     height: 1.1,
                     shadows: [
-                      const Shadow(
-                        color: AppColors.gold,
-                        blurRadius: 20,
-                        offset: Offset(0, 2),
-                      ),
                       Shadow(
-                        color: AppColors.green.withValues(alpha: 0.4),
-                        blurRadius: 40,
+                        color: isDark
+                            ? AppColors.gold
+                            : AppColors.crucenoGreen.withValues(alpha: 0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -71,40 +91,52 @@ class HomeScreen extends StatelessWidget {
                     .animate()
                     .fadeIn(duration: 700.ms)
                     .slideY(begin: -0.3, end: 0, duration: 700.ms),
-                const SizedBox(height: 12),
-                // Subtítulo en itálica
+                const SizedBox(height: 8),
+                // Subtitulo
                 Text(
                   AppStrings.subtitle,
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.greyMedium,
+                    color: secondaryText,
                     fontStyle: FontStyle.italic,
                   ),
                   textAlign: TextAlign.center,
                 )
                     .animate(delay: 400.ms)
                     .fadeIn(duration: 500.ms),
-                const SizedBox(height: 24),
-                // Línea decorativa dorada
-                Container(
-                  width: 80,
-                  height: 2,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        AppColors.gold.withValues(alpha: 0.8),
-                        Colors.transparent,
-                      ],
+                const SizedBox(height: 20),
+                // Linea decorativa bandera verde-blanco-verde
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 30, height: 3,
+                      decoration: BoxDecoration(
+                        color: AppColors.crucenoGreen,
+                        borderRadius: BorderRadius.circular(2)),
                     ),
-                  ),
+                    const SizedBox(width: 4),
+                    Container(
+                      width: 30, height: 3,
+                      decoration: BoxDecoration(
+                        color: isDark ? AppColors.white : AppColors.crucenoGreen.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2)),
+                    ),
+                    const SizedBox(width: 4),
+                    Container(
+                      width: 30, height: 3,
+                      decoration: BoxDecoration(
+                        color: AppColors.crucenoGreen,
+                        borderRadius: BorderRadius.circular(2)),
+                    ),
+                  ],
                 )
                     .animate(delay: 600.ms)
                     .fadeIn(duration: 500.ms)
                     .scaleX(begin: 0.0, end: 1.0, duration: 600.ms),
                 const Spacer(flex: 2),
-                // Botón JUGAR grande con shimmer
+                // Boton JUGAR
                 SizedBox(
                   width: double.infinity,
                   height: 60,
@@ -122,15 +154,14 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.green,
+                      backgroundColor: AppColors.crucenoGreen,
                       foregroundColor: AppColors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                          AppDefaults.cardRadius,
-                        ),
+                          AppDefaults.cardRadius),
                       ),
                       elevation: 8,
-                      shadowColor: AppColors.green.withValues(alpha: 0.4),
+                      shadowColor: AppColors.crucenoGreen.withValues(alpha: 0.4),
                     ),
                   ),
                 )
@@ -143,10 +174,12 @@ class HomeScreen extends StatelessWidget {
                       color: AppColors.gold.withValues(alpha: 0.3),
                     ),
                 const SizedBox(height: 16),
-                // Botón Cómo jugar
+                // Boton Como jugar
                 _buildOutlinedButton(
                   label: AppStrings.howToPlay,
                   icon: Icons.help_outline_rounded,
+                  borderColor: btnOutlineBorder,
+                  textColor: isDark ? AppColors.white : AppColors.crucenoGreen,
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.howToPlay);
                   },
@@ -155,10 +188,12 @@ class HomeScreen extends StatelessWidget {
                     .fadeIn(duration: 400.ms)
                     .slideY(begin: 0.2, end: 0),
                 const SizedBox(height: 12),
-                // Botón Configuración
+                // Boton Configuracion
                 _buildOutlinedButton(
                   label: AppStrings.settings,
                   icon: Icons.settings_rounded,
+                  borderColor: btnOutlineBorder,
+                  textColor: isDark ? AppColors.white : AppColors.crucenoGreen,
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.settings);
                   },
@@ -167,12 +202,12 @@ class HomeScreen extends StatelessWidget {
                     .fadeIn(duration: 400.ms)
                     .slideY(begin: 0.2, end: 0),
                 const Spacer(flex: 3),
-                // Versión
+                // Version
                 Text(
                   'v1.0.0',
                   style: GoogleFonts.poppins(
                     fontSize: 12,
-                    color: AppColors.greyMedium.withValues(alpha: 0.5),
+                    color: secondaryText.withValues(alpha: 0.5),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -184,10 +219,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// Botón delineado reutilizable para opciones secundarias
   Widget _buildOutlinedButton({
     required String label,
     required IconData icon,
+    required Color borderColor,
+    required Color textColor,
     required VoidCallback onPressed,
   }) {
     return SizedBox(
@@ -204,11 +240,8 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.white,
-          side: BorderSide(
-            color: AppColors.white.withValues(alpha: 0.3),
-            width: 1.5,
-          ),
+          foregroundColor: textColor,
+          side: BorderSide(color: borderColor, width: 1.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDefaults.cardRadius),
           ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+enum AppThemeType { cruceno, dark, light }
+
 abstract class AppColors {
+  // Bandera cruceña: verde-blanco-verde
   static const green = Color(0xFF009639);
   static const greenDark = Color(0xFF007A2E);
   static const greenLight = Color(0xFF00B844);
@@ -16,6 +19,16 @@ abstract class AppColors {
   static const surfaceLight = Color(0xFFF5F5F5);
   static const background = Color(0xFF121212);
   static const backgroundLight = Color(0xFFFFFFFF);
+
+  // Tema cruceño: verde-blanco-verde
+  static const crucenoGreen = Color(0xFF009639);
+  static const crucenoBg = Color(0xFFF0F7F2);
+  static const crucenoSurface = Color(0xFFFFFFFF);
+  static const crucenoSurfaceAlt = Color(0xFFE8F5EC);
+  static const crucenoText = Color(0xFF1B3A26);
+  static const crucenoTextSecondary = Color(0xFF4A7C5C);
+  static const crucenoBorder = Color(0xFFB8D8C4);
+  static const crucenoAccent = Color(0xFF006B28);
 }
 
 abstract class AppDefaults {

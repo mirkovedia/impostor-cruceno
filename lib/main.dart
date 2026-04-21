@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'core/constants.dart';
 import 'core/theme.dart';
 import 'core/app_routes.dart';
 import 'providers/game_provider.dart';
@@ -40,13 +41,12 @@ class _ImpostorCrucenoAppState extends State<ImpostorCrucenoApp> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.select<GameProvider, bool>((p) => p.isDarkMode);
+    final themeType = context.select<GameProvider, AppThemeType>(
+        (p) => p.themeType);
     return MaterialApp(
       title: 'IMPOSTOR CRUCEÑO',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: AppTheme.themeFor(themeType),
       home: _showSplash ? const SplashScreen() : const HomeScreen(),
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
