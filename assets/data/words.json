@@ -1,0 +1,164 @@
+[
+  {
+    "id": "comida_camba",
+    "name": "Comida Camba",
+    "icon": "🥟",
+    "words": [
+      "Salteña", "Majadito", "Silpancho", "Sonso de yuca", "Keperí",
+      "Masaco", "Somó", "Cuñapé", "Tujuré", "Pipoca",
+      "Chicha cruceña", "Api con pastel", "Pan de arroz", "Locro carretero",
+      "Patasca", "Jochi pintao", "Surubí", "Pacú", "Chicharrón de surubí",
+      "Chancho a la cruz", "Picante de pollo", "Horneado cruceño",
+      "Arroz con queso", "Zonzo", "Empanada de arroz", "Humintas",
+      "Anticucho", "Tamales", "Bolón de plátano", "Fricasé cruceño",
+      "Carbonada", "Locro de gallina", "Guabirá", "Achachairú",
+      "Motacú", "Motoyoé", "Tarope"
+    ]
+  },
+  {
+    "id": "lugares_crucenos",
+    "name": "Lugares Cruceños",
+    "icon": "📍",
+    "words": [
+      "Plaza 24 de Septiembre", "Cristo Redentor", "Parque Urbano",
+      "Equipetrol", "Segundo anillo", "Tercer anillo", "Expocruz",
+      "Ventura Mall", "La Recova", "Abasto", "Mercado Mutualista",
+      "Río Piraí", "Las Lomas de Arena", "Cotoca", "Porongo",
+      "Samaipata", "Buena Vista", "Montero", "Warnes", "La Guardia",
+      "El Torno", "Los Tajibos", "Catedral Basílica", "Parque Los Mangales",
+      "Plan 3000", "Villa 1ro de Mayo", "Pampa de la Isla",
+      "Terminal Bimodal", "Viru Viru", "Jardín Botánico"
+    ]
+  },
+  {
+    "id": "modismos_cambas",
+    "name": "Modismos Cambas",
+    "icon": "💬",
+    "words": [
+      "Pucha", "Tiluchi", "Raspaburi", "Casera", "Cumadre",
+      "Chapar", "Ahorita", "Pues", "Chivato", "Choto",
+      "Tacu", "Elay", "Chulupi", "Tumbasco", "Zaparragón",
+      "Jailón", "Chuto", "Camba", "Collita", "Paquete",
+      "Aguacero", "Surazo", "Plantón", "Cabrito", "Bicho"
+    ]
+  },
+  {
+    "id": "carnaval_cruceno",
+    "name": "Carnaval Cruceño",
+    "icon": "🎭",
+    "words": [
+      "Comparsa", "Mascarita", "Taitetú", "Tipiti", "Corso",
+      "Reina del Carnaval", "Rey Momo", "Chicha", "Serpentina", "Mote",
+      "Chuto", "Chipilo", "Pimpón", "Bomba de agua", "Pepino",
+      "Carroza", "Domingo de Carnaval", "Entrada", "Tobas",
+      "Chutillos", "Moco de pava"
+    ]
+  },
+  {
+    "id": "flora_fauna_crucena",
+    "name": "Flora y Fauna Cruceña",
+    "icon": "🦜",
+    "words": [
+      "Jochi", "Urina", "Anta", "Paraba frente roja", "Tatú",
+      "Chuchío", "Mara", "Tajibo", "Motacú", "Toborochi",
+      "Tarope", "Piyo", "Piraña", "Yacaré", "Peta",
+      "Melero", "Tucán", "Loro", "Jaguar", "Capibara", "Bufeo"
+    ]
+  },
+  {
+    "id": "fiesta_noche_camba",
+    "name": "Fiesta y Noche Camba",
+    "icon": "🍻",
+    "words": [
+      "Boliche", "Chela", "Cuba libre", "Tranca", "Preboda",
+      "After", "Chiva", "Gorrita", "Guardia", "Chupar",
+      "Joda", "Pasante", "Coronel", "Shot", "Open bar"
+    ]
+  },
+  {
+    "id": "tiktokers_crucenos",
+    "name": "TikTokers Cruceños",
+    "icon": "📱",
+    "words": [
+      "Junior Mavity", "Alejandro Pinedo", "Leonel Fransezze",
+      "Doña Luisa", "Delao", "Alfredo Solares", "Doña Elena",
+      "Guty Montalvo", "Luz Cruz", "Grisel Quiroga",
+      "Gabriel Álvarez", "Omar Cruz", "Juan Ruiz Aries",
+      "Malena Pérez", "Marco Antelo", "Soy Yorene", "AiLiveOk",
+      "Degeneraciones", "Capitán Lara", "DAYGONXD",
+      "Huguito Guardia", "Clinton Veleza", "Cristhian Valverde",
+      "Romy Paz", "Chivito"
+    ]
+  },
+  {
+    "id": "streamers_crucenos",
+    "name": "Streamers Cruceños",
+    "icon": "🎮",
+    "words": [
+      "Kamikaze", "PrettyHBoy", "KelerTV", "Clara.mt",
+      "SoyJhonas", "El Capi", "Madelen Vivero",
+      "Andrés Salvatierra", "Los Streamers", "Hugo Saavedra"
+    ]
+  },
+  {
+    "id": "lifestyle_belleza_fitness",
+    "name": "Lifestyle Belleza Fitness",
+    "icon": "💄",
+    "words": [
+      "Alana Fernández", "Adriana Barba", "Yadira Pacheco",
+      "Carolina Kempff", "Eduardo Franco", "Rafa Quinteros",
+      "Yussara Gutiérrez", "Miel by Michelle"
+    ]
+  },
+  {
+    "id": "figuras_publicas_crucenas",
+    "name": "Figuras Públicas Cruceñas",
+    "icon": "🏛️",
+    "words": [
+      "Mamén Saavedra", "Juan Pablo Velasco", "Otto Ritter",
+      "Luis Fernando Camacho", "Jhonny Fernández", "Rubén Costas",
+      "Percy Fernández", "Branko Marinkovic", "Juan Carlos Medrano",
+      "Angélica Sosa"
+    ]
+  },
+  {
+    "id": "artistas_bolivianos",
+    "name": "Artistas Bolivianos",
+    "icon": "🎤",
+    "words": [
+      "Chila Jatun", "Iyawi", "Proyección", "Azul Azul",
+      "Gladys Moreno", "Roger Becerra", "Matamba", "Octavia",
+      "Los Canarios del Chaco", "Savia Andina", "Bonny Lovy"
+    ]
+  },
+  {
+    "id": "deportistas_equipos",
+    "name": "Deportistas y Equipos",
+    "icon": "⚽",
+    "words": [
+      "Oriente Petrolero", "Blooming", "Royal Pari", "Guabirá",
+      "Tahuichi", "Marcelo Martins Moreno", "Estadio Tahuichi Aguilera",
+      "Erwin Sánchez"
+    ]
+  },
+  {
+    "id": "fenomenos_virales",
+    "name": "Fenómenos Virales",
+    "icon": "🔥",
+    "words": [
+      "El Pollito de 10 Bolivianos", "La Feria Barrio Lindo",
+      "El Chaparro Chuacheneger", "Chingu Amiga",
+      "Los Tiktokers de denuncia"
+    ]
+  },
+  {
+    "id": "personajes_historicos_crucenos",
+    "name": "Personajes Históricos Cruceños",
+    "icon": "📜",
+    "words": [
+      "Ñuflo de Chaves", "Andrés Ibáñez", "Germán Busch",
+      "Melchor Pinto", "Hernando Sanabria", "Gabriel René Moreno",
+      "Ignacio Warnes", "José Manuel Baca"
+    ]
+  }
+]
