@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.setup);
+                      Navigator.pushNamed(context, AppRoutes.modeSelect);
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 28),
                     label: Text(

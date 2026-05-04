@@ -41,7 +41,9 @@ class _ResultScreenState extends State<ResultScreen> {
     final state = context.watch<GameProvider>().gameState;
     if (state == null) return const SizedBox.shrink();
 
-    _playResultSound();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _playResultSound();
+    });
 
     final impostors = state.impostors;
     final civiliansWin = state.civiliansWin;

@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'core/constants.dart';
 import 'core/theme.dart';
 import 'core/app_routes.dart';
 import 'providers/game_provider.dart';
+import 'providers/room_provider.dart';
+import 'services/storage_service.dart';
 import 'screens/splash_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  final provider = GameProvider();
-  await provider.init();
+  final storageService = StorageService();
+  await storageService.init();
+
+  final gameProvider = GameProvider();
+  await gameProvider.init();
 
   runApp(
-    ChangeNotifierProvider.value(
-      value: provider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: gameProvider),
+        ChangeNotifierProvider(
+          create: (_) => RoomProvider(storageService)),
+      ],
       child: const ImpostorCrucenoApp(),
     ),
   );

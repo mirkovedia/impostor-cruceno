@@ -55,9 +55,8 @@ class GameState {
     final results = voteResults;
     if (results.isEmpty) return null;
     final maxVotes = results.values.reduce((a, b) => a > b ? a : b);
-    final topPlayers =
-        results.entries.where((e) => e.value == maxVotes).toList();
-    return topPlayers.first.key;
+    if (maxVotes == 0) return null;
+    return results.entries.where((e) => e.value == maxVotes).first.key;
   }
 
   bool get civiliansWin {

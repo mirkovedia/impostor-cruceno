@@ -308,7 +308,7 @@ class _SetupScreenState extends State<SetupScreen> {
           gridDelegate:
               const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, crossAxisSpacing: 12,
-            mainAxisSpacing: 12, childAspectRatio: 1.3),
+            mainAxisSpacing: 12, childAspectRatio: 1.1),
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final cat = categories[index];

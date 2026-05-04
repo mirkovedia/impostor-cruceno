@@ -58,6 +58,7 @@ class RoomPlayer {
     bool? hasRevealed,
     bool? hasGivenClue,
     String? votedForId,
+    bool clearVotedForId = false,
   }) => RoomPlayer(
     id: id,
     name: name ?? this.name,
@@ -67,7 +68,7 @@ class RoomPlayer {
     role: role ?? this.role,
     hasRevealed: hasRevealed ?? this.hasRevealed,
     hasGivenClue: hasGivenClue ?? this.hasGivenClue,
-    votedForId: votedForId ?? this.votedForId,
+    votedForId: clearVotedForId ? null : (votedForId ?? this.votedForId),
   );
 }
 
@@ -132,6 +133,7 @@ class Room {
     final results = voteResults;
     if (results.isEmpty) return null;
     final maxVotes = results.values.reduce((a, b) => a > b ? a : b);
+    if (maxVotes == 0) return null;
     return results.entries.where((e) => e.value == maxVotes).first.key;
   }
 

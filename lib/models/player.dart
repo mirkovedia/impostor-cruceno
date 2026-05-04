@@ -8,10 +8,10 @@ class Player {
   final String id;
   final String name;
   final int index;
-  PlayerRole role;
-  bool hasRevealed;
-  bool hasGivenClue;
-  String? votedForId;
+  final PlayerRole role;
+  final bool hasRevealed;
+  final bool hasGivenClue;
+  final String? votedForId;
 
   Player({
     String? id,
@@ -32,6 +32,7 @@ class Player {
     bool? hasRevealed,
     bool? hasGivenClue,
     String? votedForId,
+    bool clearVotedForId = false,
   }) {
     return Player(
       id: id,
@@ -40,7 +41,7 @@ class Player {
       role: role ?? this.role,
       hasRevealed: hasRevealed ?? this.hasRevealed,
       hasGivenClue: hasGivenClue ?? this.hasGivenClue,
-      votedForId: votedForId ?? this.votedForId,
+      votedForId: clearVotedForId ? null : (votedForId ?? this.votedForId),
     );
   }
 }

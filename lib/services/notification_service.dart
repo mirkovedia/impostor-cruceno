@@ -99,7 +99,6 @@ class NotificationService {
           channelDescription: _channelDescription,
           importance: Importance.defaultImportance,
           priority: Priority.defaultPriority,
-          styleInformation: const BigTextStyleInformation(''),
         ),
         iOS: const DarwinNotificationDetails(),
       ),

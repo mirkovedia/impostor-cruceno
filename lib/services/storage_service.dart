@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import '../core/constants.dart';
 
 class StorageService {
@@ -11,6 +12,8 @@ class StorageService {
   static const _keyNotificationsEnabled = 'notifications_enabled';
   static const _keyReminderDay = 'reminder_day';
   static const _keyReminderHour = 'reminder_hour';
+  static const _keyDeviceId = 'device_id';
+  static const _keyPlayerName = 'player_name';
 
   late SharedPreferences _prefs;
 
@@ -58,7 +61,25 @@ class StorageService {
   int get reminderHour => _prefs.getInt(_keyReminderHour) ?? 19;
   set reminderHour(int value) => _prefs.setInt(_keyReminderHour, value);
 
+  String get deviceId {
+    var id = _prefs.getString(_keyDeviceId);
+    if (id == null) {
+      id = const Uuid().v4();
+      _prefs.setString(_keyDeviceId, id);
+    }
+    return id;
+  }
+
+  String get playerName => _prefs.getString(_keyPlayerName) ?? '';
+  set playerName(String value) => _prefs.setString(_keyPlayerName, value);
+
   Future<void> resetAll() async {
+    final savedDeviceId = deviceId;
+    final savedName = playerName;
     await _prefs.clear();
+    _prefs.setString(_keyDeviceId, savedDeviceId);
+    if (savedName.isNotEmpty) {
+      _prefs.setString(_keyPlayerName, savedName);
+    }
   }
 }
