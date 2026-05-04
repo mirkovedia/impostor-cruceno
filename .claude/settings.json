@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/Users/USUARIO/AppData/Local/Pub/Cache/bin/flutterfire.bat --version)",
+      "Bash(firebase login:list)",
+      "Bash(firebase projects:list)",
+      "Bash(/c/Users/USUARIO/AppData/Local/Pub/Cache/bin/flutterfire.bat configure *)",
+      "Read(//c/Users/USUARIO/.claude/projects/c--ClaudecodeProjects-impostor-cruceno/9bcf94e6-b2e5-4416-84eb-35e8fd28c871/tool-results/**)",
+      "Bash(firebase firestore:databases:list --project=impostor-cruceno)",
+      "Bash(firebase firestore:databases:create --project=impostor-cruceno --location=southamerica-east1 --database=\"\\(default\\)\")",
+      "Bash(firebase firestore:databases:create --project=impostor-cruceno --location=southamerica-east1)",
+      "Bash(firebase firestore:databases:create default --project=impostor-cruceno --location=southamerica-east1)"
+    ]
+  }
+}

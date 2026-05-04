@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "59239959541",
+    "project_id": "impostor-cruceno",
+    "storage_bucket": "impostor-cruceno.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59239959541:android:f37e77a4a29d6e075b6ebc",
+        "android_client_info": {
+          "package_name": "com.example.impostor_cruceno"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJXEbnfk4kzfroHmkNND8i0In8w8DdQ3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
