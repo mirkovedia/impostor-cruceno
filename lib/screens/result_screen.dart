@@ -8,6 +8,7 @@ import '../models/game_state.dart';
 import '../providers/game_provider.dart';
 import '../services/audio_service.dart';
 import '../services/haptic_service.dart';
+import '../services/share_service.dart';
 
 /// Pantalla de resultado con revelacion dramatica y estadisticas.
 class ResultScreen extends StatefulWidget {
@@ -141,7 +142,33 @@ class _ResultScreenState extends State<ResultScreen> {
               // Tarjeta de estadisticas
               _buildStatsCard(
                 state, voteResults, maxVotes),
-              const SizedBox(height: 28),
+              const SizedBox(height: 20),
+              // Boton compartir resultado
+              SizedBox(
+                width: double.infinity, height: 52,
+                child: ElevatedButton.icon(
+                  onPressed: () => ShareService.shareResult(state),
+                  icon: const Icon(
+                    Icons.share_rounded, size: 20),
+                  label: Text('COMPARTIR RESULTADO',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.gold,
+                    foregroundColor: AppColors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        AppDefaults.cardRadius)),
+                    elevation: 4,
+                    shadowColor: AppColors.gold
+                        .withValues(alpha: 0.3)),
+                ),
+              ).animate()
+                  .fadeIn(delay: 3200.ms, duration: 500.ms)
+                  .slideY(begin: 0.2),
+              const SizedBox(height: 20),
               // Botones de accion
               SizedBox(
                 width: double.infinity, height: 52,

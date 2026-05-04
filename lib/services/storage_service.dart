@@ -8,6 +8,9 @@ class StorageService {
   static const _keyVibration = 'vibration_enabled';
   static const _keyDefaultRoundTime = 'default_round_time';
   static const _keyDefaultImpostors = 'default_impostors';
+  static const _keyNotificationsEnabled = 'notifications_enabled';
+  static const _keyReminderDay = 'reminder_day';
+  static const _keyReminderHour = 'reminder_hour';
 
   late SharedPreferences _prefs;
 
@@ -41,6 +44,19 @@ class StorageService {
   int get defaultImpostors => _prefs.getInt(_keyDefaultImpostors) ?? 1;
   set defaultImpostors(int value) =>
       _prefs.setInt(_keyDefaultImpostors, value);
+
+  bool get isNotificationsEnabled =>
+      _prefs.getBool(_keyNotificationsEnabled) ?? false;
+  set isNotificationsEnabled(bool value) =>
+      _prefs.setBool(_keyNotificationsEnabled, value);
+
+  // Día de la semana: 5 = viernes (DateTime.friday)
+  int get reminderDay => _prefs.getInt(_keyReminderDay) ?? DateTime.friday;
+  set reminderDay(int value) => _prefs.setInt(_keyReminderDay, value);
+
+  // Hora del recordatorio (0-23), default 19:00
+  int get reminderHour => _prefs.getInt(_keyReminderHour) ?? 19;
+  set reminderHour(int value) => _prefs.setInt(_keyReminderHour, value);
 
   Future<void> resetAll() async {
     await _prefs.clear();

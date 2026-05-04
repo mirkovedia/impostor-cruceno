@@ -57,6 +57,9 @@ class SettingsScreen extends StatelessWidget {
             onChanged: (_) => provider.toggleVibration(),
           ),
           _sectionDivider(theme),
+          _buildSectionHeader('Notificaciones', theme),
+          _buildNotificationSection(context, provider, theme),
+          _sectionDivider(theme),
           _buildSectionHeader('Valores por defecto', theme),
           _buildTimeSlider(provider, theme),
           _buildImpostorSelector(provider),
@@ -200,6 +203,88 @@ class SettingsScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
           color: theme.colorScheme.secondary,
           letterSpacing: 0.5)),
+    );
+  }
+
+  Widget _buildNotificationSection(
+      BuildContext context, GameProvider provider, ThemeData theme) {
+    const dayNames = {
+      DateTime.monday: 'Lunes',
+      DateTime.tuesday: 'Martes',
+      DateTime.wednesday: 'Miércoles',
+      DateTime.thursday: 'Jueves',
+      DateTime.friday: 'Viernes',
+      DateTime.saturday: 'Sábado',
+      DateTime.sunday: 'Domingo',
+    };
+
+    return Column(
+      children: [
+        SwitchListTile(
+          title: Text('Recordatorios',
+            style: GoogleFonts.poppins()),
+          subtitle: Text(
+            provider.isNotificationsEnabled
+                ? 'Te recordaremos jugar cada semana'
+                : 'Activá para recibir recordatorios',
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
+          secondary: Icon(
+            provider.isNotificationsEnabled
+                ? Icons.notifications_active
+                : Icons.notifications_off_outlined,
+            color: provider.isNotificationsEnabled
+                ? AppColors.gold : theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+          value: provider.isNotificationsEnabled,
+          activeTrackColor: AppColors.gold,
+          onChanged: (_) => provider.toggleNotifications(),
+        ),
+        if (provider.isNotificationsEnabled) ...[
+          ListTile(
+            leading: Icon(Icons.calendar_today,
+              color: theme.colorScheme.primary, size: 20),
+            title: Text('Día del recordatorio',
+              style: GoogleFonts.poppins(fontSize: 14)),
+            trailing: DropdownButton<int>(
+              value: provider.reminderDay,
+              underline: const SizedBox.shrink(),
+              style: GoogleFonts.poppins(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: theme.colorScheme.onSurface),
+              items: dayNames.entries.map((e) => DropdownMenuItem(
+                value: e.key,
+                child: Text(e.value),
+              )).toList(),
+              onChanged: (v) {
+                if (v != null) provider.setReminderDay(v);
+              },
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.access_time,
+              color: theme.colorScheme.primary, size: 20),
+            title: Text('Hora del recordatorio',
+              style: GoogleFonts.poppins(fontSize: 14)),
+            trailing: DropdownButton<int>(
+              value: provider.reminderHour,
+              underline: const SizedBox.shrink(),
+              style: GoogleFonts.poppins(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: theme.colorScheme.onSurface),
+              items: List.generate(24, (i) => DropdownMenuItem(
+                value: i,
+                child: Text('${i.toString().padLeft(2, '0')}:00'),
+              )),
+              onChanged: (v) {
+                if (v != null) provider.setReminderHour(v);
+              },
+            ),
+          ),
+        ],
+      ],
     );
   }
 
